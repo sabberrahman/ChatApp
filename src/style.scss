@@ -1,0 +1,38 @@
+.formContainer{
+    background-color: #a7bcff;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .formWrapper{
+        background-color: white;
+        padding: 20px 60px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        form{
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        }
+
+        .logo{
+            color: black;
+            font-weight: bold;
+            font-size: 1.5rem;
+            font-family:  Georgia, 'Times New Roman', Times, serif;
+            // letter-spacing: 1px;
+        }
+
+        .title{
+            color: black;
+            opacity: 60%;
+            letter-spacing: 2px;
+        }
+       
+    }
+
+}
