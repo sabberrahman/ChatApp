@@ -1,4 +1,5 @@
 import React from 'react';
+import { LuImagePlus } from "react-icons/lu";
 
 const Register = () => {
     return (
@@ -10,7 +11,10 @@ const Register = () => {
               <input type="text" placeholder='Display Username' />
               <input type="email" placeholder='Email' />
               <input type="password" placeholder='Password' />
-              <input type="file" placeholder='Upload File'/>
+              <input type="file" style={{display:"none"}} id='file'/>
+              <label htmlFor="file">
+              <LuImagePlus style={{fontSize:"1.5rem"}}/>
+                <span>Upload profile  </span></label>
               <button>Sign up</button>
               <p>Do you have a account Already?Login</p>
             </form>
