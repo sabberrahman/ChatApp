@@ -184,15 +184,68 @@
         
       }
        .chat{
-        flex:2
-       }
-    }
+        flex:2;  
 
-    .chatInfo{
+         .chatInfo{
         background-color: #5d5b8d;
         display: flex;
-        height: 4vh;
+        height: 5vh;
         justify-content: space-between;
+        color: lightgray;
+        padding: 10px;
+        ;
+        span{
+            margin-top: 10px;
+        }
     }
+        .chatIcons{
+        display: flex;
+        gap: 10px;
+        opacity: 70%;
+        padding: 10px;
+        cursor: pointer;
+        }
+
+        .messages{
+            background-color: #ddddf7;
+            padding: 10px;
+            height: calc(100% - 160px);
+        }
+
+        .input{
+            background-color: white;
+            padding: 10px;
+            height: 55px; //adjust kora
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            input{
+               width: 100%; 
+               border: none;
+               outline: none;
+               color: #2f2d52;
+               font-size: 18px;
+            }
+
+            .send{
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .inputIconz{
+                font-size: 1.4rem;
+                margin-right: 5px;
+                opacity: 60%;
+                cursor: pointer;
+            }
+        }
+      }
+ }
 }
+
+    
+
+    
 
