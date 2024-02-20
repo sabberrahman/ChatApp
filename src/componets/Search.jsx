@@ -1,17 +1,52 @@
-import React from 'react';
+import { collection, getDoc, getDocs, query, where } from 'firebase/firestore';
+import React, { useState } from 'react';
+import { db } from '../Firebase';
 
 const Search = () => {
+    const [username , setUsername ]=useState("");
+    const [user, setUser]=useState(null)
+    const [ err, setErr]=useState(false);
+
+    const handleKey=()=>{
+        e.code ==="Enter" && handleSearch();
+    }
+
+    const handleSearch = async () => {
+        const q = query(
+            collection(db, "users"),
+            where("displayName", "==", username)
+        );
+
+        try {
+            const querySnapshot = await getDocs(q);
+            if (!querySnapshot.empty) {
+                querySnapshot.forEach((doc) => {
+                    setUser(doc.data());
+                });
+            } else {
+                setErr(true);
+            }
+        } catch (err) {
+            console.error("Error searching for user:", err);
+            setErr(true);
+        }
+    }
+   
+
+    }
     return (
+        //not working doe 
         <div className="search">
             <div className="searchForm">
-                <input type="text" placeholder='Find your Friend' />
+                <input type="text" placeholder='Find your Friend' onChange={e=>setUsername(e.target.value)}  onKeyDown={handleKey}/>
             </div>
-            <div className="userChat">
-                <img src="https://images.pexels.com/photos/20144196/pexels-photo-20144196/free-photo-of-a-woman-in-sunglasses-and-a-floral-shirt-standing-in-front-of-a-wall.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load" alt="" />
+            {err && <span>User is not Found!</span>}
+           {user && <div className="userChat">
+                <img src={user.photoURL}alt="" />
                 <div className="userChatInfo">
-                    <span>sabber</span>
+                    <span>{user.displayName}</span>
                 </div>
-            </div>
+            </div>}
         </div>
     );
 };
