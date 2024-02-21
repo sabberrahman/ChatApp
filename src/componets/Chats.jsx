@@ -1,38 +1,45 @@
-import React from 'react';
+import { doc, onSnapshot } from 'firebase/firestore';
+import React, { useContext, useEffect, useState } from 'react';
+import { db } from '../Firebase';
+import { AuthContext } from '../context/AuthContext';
+import { ChatContext } from '../context/ChatContext';
 
 const Chats = () => {
+    const [chats , setChats]=useState([]);
+
+    const {currentUser}=useContext(AuthContext);
+    const{dispatch}= useContext(ChatContext);
+
+    //realtime data--
+   useEffect(()=>{
+
+    const getChats=()=>{
+    const unsub = onSnapshot(doc(db,"userChats",currentUser.uid),(doc)=>{
+    setChats(doc.data());
+    }) 
+    };
+   
+    return ()=>{unsub()};
+
+    currentUser.uid && getChats();
+   },[currentUser.uid])
+
+   console.log(chats);// objects
+   console.log(Object.entries(chats)); //array
+
     return (
-        <div>
-            <div className="chats">
-            <div className="userChat">
-                <img src="https://images.pexels.com/photos/20144196/pexels-photo-20144196/free-photo-of-a-woman-in-sunglasses-and-a-floral-shirt-standing-in-front-of-a-wall.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load" alt="" />
+        <div className="chats">
+            {Object.entries(chats)?.map((chat)=>(
+            
+            <div className="userChat" key={chat[0]} onClick={handleSelect()}>
+                <img src={chat[1].userInfo.photoURL} alt="" />
                 <div className="userChatInfo">
-                    <span>sabber</span>
-                    <p>Yes come over</p>
+                    <span>{chat[1].userInfo.displayName}</span>
+                    <p>{chat[1].userInfo.lastMessage?.text}</p>
                 </div>
             </div>
-            <div className="userChat">
-                <img src="https://images.pexels.com/photos/20144196/pexels-photo-20144196/free-photo-of-a-woman-in-sunglasses-and-a-floral-shirt-standing-in-front-of-a-wall.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load" alt="" />
-                <div className="userChatInfo">
-                    <span>sabber</span>
-                    <p>Yes come over</p>
-                </div>
-            </div>
-            <div className="userChat">
-                <img src="https://images.pexels.com/photos/20144196/pexels-photo-20144196/free-photo-of-a-woman-in-sunglasses-and-a-floral-shirt-standing-in-front-of-a-wall.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load" alt="" />
-                <div className="userChatInfo">
-                    <span>sabber</span>
-                    <p>Yes come over</p>
-                </div>
-            </div>
-            <div className="userChat">
-                <img src="https://images.pexels.com/photos/20144196/pexels-photo-20144196/free-photo-of-a-woman-in-sunglasses-and-a-floral-shirt-standing-in-front-of-a-wall.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load" alt="" />
-                <div className="userChatInfo">
-                    <span>sabber</span>
-                    <p>Yes come over</p>
-                </div>
-            </div>
-            </div>
+            ))} 
+           
         </div>
     );
 };
