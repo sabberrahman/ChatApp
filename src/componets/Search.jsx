@@ -71,7 +71,7 @@ const Search = () => {
     }
    
 return (
-        //not working doe 
+        //! not working doe 
         <div className="search">
             <div className="searchForm">
                 <input type="text" placeholder='Find your Friend'
